@@ -9,10 +9,8 @@ export const SignupPage = () => {
 
   const handleLogin = async (userData:any) => {
 
-    const response = await server.post('/signin', {
-      userData
-    })
-    navigate('/signin')
+    const response = await server.post('/signup', userData)
+    navigate('/')
   }
   return (
     <AuthForm

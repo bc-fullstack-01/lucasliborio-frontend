@@ -1,8 +1,8 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { Link as LinkUI, TextField, Button, Container, Stack} from '@mui/material'
+import { TextField, Button, Container, Stack, Box } from '@mui/material'
 import './index.css'
-
+import logo from '../../assets/logo.svg'
 
 interface Props {
   fieldsToRender: any
@@ -11,9 +11,7 @@ interface Props {
   buttonLink: string,
   linkText: string
 }
-type ObjectForm<Type> = {
-  [Property in keyof Type]: Type[Property]
-}
+
 
 export const AuthForm = ({
   fieldsToRender,
@@ -22,14 +20,10 @@ export const AuthForm = ({
   buttonLink,
   linkText
 }: Props) => {
-  
-  type OptionsFlags<Type> = {
-    [Property in keyof Type]: string;
-  };
-  type UserForm = OptionsFlags<typeof fieldsToRender>
-  const objectForm = {}
-  fieldsToRender.map((field:string) => Object.assign(objectForm, {[field]:''}))
-  const [userData, setUserData] = useState<UserForm>(objectForm)
+
+  const objectForm: any = {}
+  fieldsToRender.map((field: string) => Object.assign(objectForm, { [field]: '' }))
+  const [userData, setUserData] = useState(objectForm)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmitForm(userData)
@@ -37,25 +31,43 @@ export const AuthForm = ({
   return (
     <Container maxWidth="xs">
       <form onSubmit={(e) => { handleSubmit(e) }}>
+
         <Stack
           spacing={5}
-          justifyContent="center"
           textAlign='center'
+          alignContent='strech'
           alignItems="strech"
         >
-          {fieldsToRender.map((field:string, index: number) => (
+          <Container>
+            <img
+              id="form-logo"
+              src={logo}>
+            </img>
+          </Container>
+          {fieldsToRender.map((field: string, index: number) => (
             <TextField
-            key={index.toString()}
-            name={field}
-            value={userData[field]}
-            variant="outlined"
-            label={field.toUpperCase()}
-            type={field}
-            onChange={(e) => {setUserData({...userData, [e.target.name]: e.target.value})}}
-          ></TextField>
-        ))}
-          <Button type="submit" variant="contained">{buttonLabel}</Button>
-          <Link className="link-action"to={buttonLink}><Button variant="outlined">{linkText}</Button></Link>
+              key={index.toString()}
+              name={field}
+              value={userData[field]}
+              variant="outlined"
+              label={field.toUpperCase()}
+              type={field.includes('password') ? 'password' : field}
+              onChange={(e) => { setUserData({ ...userData, [e.target.name]: e.target.value }) }}
+            ></TextField>
+          ))}
+          <Button
+            type="submit"
+            variant="contained">
+            {buttonLabel}
+          </Button>
+          <Link
+            className="link-action"
+            to={buttonLink}>
+            <Button
+              variant="outlined">
+              {linkText}
+            </Button>
+          </Link>
         </Stack>
       </form>
     </Container >

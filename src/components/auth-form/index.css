@@ -1,9 +1,7 @@
-.logo {
-  height: 250px;
-  width: 250px;
-  margin-top: 10px;
-}
-
 .link-action{
   text-decoration: none;
+}
+#form-logo {
+  width: 250px;
+  height: 250px;
 }
