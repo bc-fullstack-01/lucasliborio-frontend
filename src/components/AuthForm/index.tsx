@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { TextField, Button, Container, Stack } from '@mui/material'
-
+import { TextField, Button, Container, Stack, Box } from '@mui/material'
+import './index.css'
 
 
 interface Props {
@@ -25,15 +25,16 @@ export const AuthForm = ({
     onSubmitForm(email.value, password.value)
   }
   return (
-
     <Container maxWidth="xs">
-      <h1>SignIn</h1>
       <form onSubmit={(e) => { handleSubmit(e) }}>
         <Stack
-          spacing={6}
+          spacing={5}
           justifyContent="center"
-          alignItems="stretch"
+          textAlign='center'
+          alignItems="strech"
+          
         >
+
           <TextField
             onChange={(e) => setEmail({ value: e.target.value, error: 'none' })}
             name="email" value={email.value}
@@ -48,13 +49,10 @@ export const AuthForm = ({
             label="Password">
           </TextField>
 
-          <Button sx={{
-            width: '100%'
-          }} type="submit" variant="contained">{buttonLabel}</Button>
+          <Button type="submit" variant="contained">{buttonLabel}</Button>
           <Link to={buttonLink}>{linkText}</Link>
         </Stack>
       </form>
-    </Container>
-
+    </Container >
   )
 }
