@@ -2,22 +2,18 @@ import React, { useState } from "react"
 import server from "../../api/server"
 import jwt from "jwt-decode"
 import { useNavigate } from "react-router-dom"
-import { AuthForm } from "../../components/AuthForm"
+import { AuthForm } from "../../components/auth-form"
 
 interface TokenUser {
   profileId: string,
   user: string
 }
 
-export const SigninPage = () => {
+export const LoginPage = () => {
   const navigate = useNavigate()
 
-  const handleLogin = async (email: string, password: string) => {
-    console.log(email, password)
-    const response = await server.post('/login', {
-      email,
-      password
-    })
+  const handleLogin = async (userData:any) => {
+    const response = await server.post('/login', userData)
     console.log(await response.data)
     const { accessToken } = await response.data
     const decoded = jwt(accessToken) as TokenUser
@@ -29,10 +25,11 @@ export const SigninPage = () => {
   }
   return (
     <AuthForm
+      fieldsToRender={['email', 'password']}
       onSubmitForm={handleLogin}
       buttonLink="/signup"
       buttonLabel="Login"
-      linkText='Não tem uma conta, faça seu cadastro'
+      linkText="Don't have an account? Click Here" 
     />
   )
 }
