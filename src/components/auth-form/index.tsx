@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { TextField, Button, Container, Stack, Box } from '@mui/material'
+import { TextField, Button, Container, Stack } from '@mui/material'
 import './index.css'
 import logo from '../../assets/logo.svg'
 
@@ -11,7 +11,10 @@ interface Props {
   buttonLink: string,
   linkText: string
 }
-
+interface inputsProperty {
+  value?: string,
+  error?: string
+}
 
 export const AuthForm = ({
   fieldsToRender,
@@ -21,9 +24,13 @@ export const AuthForm = ({
   linkText
 }: Props) => {
 
-  const objectForm: any = {}
-  fieldsToRender.map((field: string) => Object.assign(objectForm, { [field]: '' }))
-  const [userData, setUserData] = useState(objectForm)
+  type FormFields = {
+    [x:string]: inputsProperty
+  }
+  const objectForm: FormFields = {}
+  fieldsToRender.map((field: string) => Object.assign(objectForm, { [field]: { value: '', error: '' } }))
+  const [userData, setUserData] = useState<FormFields>(objectForm)
+  
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmitForm(userData)
@@ -40,6 +47,7 @@ export const AuthForm = ({
         >
           <Container>
             <img
+            alt="gorgeous bird"
               id="form-logo"
               src={logo}>
             </img>
@@ -48,11 +56,11 @@ export const AuthForm = ({
             <TextField
               key={index.toString()}
               name={field}
-              value={userData[field]}
+              value={userData[field].value}
               variant="outlined"
               label={field.toUpperCase()}
               type={field.includes('password') ? 'password' : field}
-              onChange={(e) => { setUserData({ ...userData, [e.target.name]: e.target.value }) }}
+              onChange={(e) => { setUserData({ ...userData, [e.target.name]: { value: e.target.value } }) }}
             ></TextField>
           ))}
           <Button
