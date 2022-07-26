@@ -23,10 +23,11 @@ export const LoginPage = () => {
       const decoded = jwt(accessToken) as TokenUser
       Object.assign(decoded, { accessToken })
       Object.entries(decoded).map(([key, value]) => {
-        localStorage.setItem(key, value as string)
+        localStorage.setItem(key, value)
       })
       navigate('/home')
     } catch (error) {
+      console.log(error)
       alert('não foi possivel logar o usuario')
     } 
   }

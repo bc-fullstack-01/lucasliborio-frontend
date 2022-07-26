@@ -3,7 +3,7 @@ import server from "../../api/server";
 import { CustomNavBar } from "../../components/custom-navbar";
 
 
-export const HomePage = () => {
+export const ProfilePage = () => {
   const getPosts = async () =>{
     try {
       const token = localStorage.getItem('accessToken')
@@ -17,6 +17,6 @@ export const HomePage = () => {
     }
   }
   return (
-  <CustomNavBar title="HOME"/>
+  <CustomNavBar title="Profile"/>
   )
 }
