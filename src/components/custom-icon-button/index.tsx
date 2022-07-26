@@ -14,9 +14,9 @@ export const CustomIconButton = (
   return (
     <IconButton
       size='large'
-      aria-label='show home'
+      aria-label={label}
       color="inherit"
-      onClick={() => onClickFunction}
+      onClick={onClickFunction}
     >
       {children}
     </IconButton>
