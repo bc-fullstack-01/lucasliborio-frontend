@@ -1,8 +1,12 @@
-import { Container, Divider } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import server from "../../api/server";
+import InfiniteScrolls from "react-infinite-scroll-component";
+
 import { CustomNavBar } from "../../components/custom-navbar";
 import { PostCard } from "../../components/post-card";
+import server from "../../api/server";
+import { useNavigate } from "react-router-dom";
+import { CustomContainer } from "../../components/container/container";
 
 export interface comment {
   _id: string,
@@ -24,36 +28,61 @@ export interface Post {
 }
 
 export const HomePage = () => {
+  const navigate = useNavigate()
   const token = localStorage.getItem('accessToken')
   const [posts, setPosts] = useState<Post[]>([])
+  const [page, setPage] = useState<number>(0)
+  let hasMore = true
+
+
+  const handlePostClick = (postId: string) => {
+    navigate(`/posts/${postId}`)
+  }
+
   useEffect(() => {
     const getPosts = async () => {
       try {
-
-        const response = await server.get('/feed', {
+        const response = await server.get(`/feed/?page=${page}`, {
           headers: {
             authorization: `Bearer ${token}`
           }
         })
-        setPosts(response.data)
-        console.log(response.data)
+        hasMore = response.data.length > 0 ? true : false
+
+        setPosts(p => [...p, ...response.data])
+        console.log("RESPONDE DATA", response.data)
+        console.log("STATE POST ", posts)
+        console.log("PAGE", page)
+        console.log("hasMore", hasMore)
       } catch (err) {
         console.log(err)
       }
     }
     getPosts()
-  }, [token])
-
+  
+  }, [token, page])
+  
+  console.log("POSTS", posts)
+  const loadMorePosts = () => {
+    setPage(page + 1)
+  }
   return (
-    <div>
+    <>
       <CustomNavBar title="Home" />
-      <Container sx={{ display: 'flex', marginTop: '100px', flexDirection: 'column', alignItems: 'center' }}>
-        {posts.map(post => (
-          <div key={post._id}>
-            <PostCard post={post} />
-          </div>
-        ))}
-      </Container>
-    </div>
+      <CustomContainer>
+        <InfiniteScrolls
+          dataLength={posts.length}
+          next={loadMorePosts}
+          hasMore={hasMore}
+          loader={<Typography>Loading...</Typography>}
+        >
+          {posts && posts.map((post: Post) => (
+            <div key={post._id}>
+              <PostCard handlePostClick={handlePostClick} post={post} />
+            </div>
+          ))}
+        </InfiniteScrolls>
+      </CustomContainer>
+    </>
   )
 }
