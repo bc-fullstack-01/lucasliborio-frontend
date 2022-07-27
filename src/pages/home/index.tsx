@@ -49,11 +49,11 @@ export const HomePage = () => {
         })
         hasMore = response.data.length > 0 ? true : false
 
-        setPosts(p => [...p, ...response.data])
-        console.log("RESPONDE DATA", response.data)
+        setPosts([...posts, ...response.data])
+        /* console.log("RESPONDE DATA", response.data)
         console.log("STATE POST ", posts)
         console.log("PAGE", page)
-        console.log("hasMore", hasMore)
+        console.log("hasMore", hasMore) */
       } catch (err) {
         console.log(err)
       }
@@ -62,7 +62,7 @@ export const HomePage = () => {
   
   }, [token, page])
   
-  console.log("POSTS", posts)
+  //console.log("POSTS", posts)
   const loadMorePosts = () => {
     setPage(page + 1)
   }
