@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import {
   AppBar,
   Toolbar,
@@ -16,15 +16,15 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from 'react-router-dom';
 
 interface ICustomNavBar {
-  title: string 
+  title: string
 }
 
-export const CustomNavBar = ({ title }:ICustomNavBar ) => {
+export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const navigate = useNavigate()
   console.log(title)
   return (
-    <AppBar position='fixed'>
-      <Toolbar sx={{justifyContent: 'space-between'}}>
+    < AppBar position='fixed' >
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
         <Typography
           variant='h6'
           noWrap
@@ -34,15 +34,15 @@ export const CustomNavBar = ({ title }:ICustomNavBar ) => {
           {title}
         </Typography>
         <Box
-          sx={{ display: { xs: 'block', sm: 'flex' }}}
+          sx={{ display: { xs: 'block', sm: 'flex' } }}
         >
-          <CustomIconButton onClickFunction={() =>  navigate("/home")} label="show-home"><HomeOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() =>  navigate("/notifications")} label="show-notification"><NotificationsNoneOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() =>  navigate("/new-post")} label="show-create-post"><EditOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() =>  navigate("/profiles")} label="show-profiles"><GroupsOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() =>  navigate("/profile")} label="show-profile"><AccountCircleIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => navigate("/home")} label="show-home"><HomeOutlinedIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => navigate("/notifications")} label="show-notification"><NotificationsNoneOutlinedIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => navigate("/new-post")} label="show-create-post"><EditOutlinedIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => navigate("/profiles")} label="show-profiles"><GroupsOutlinedIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => navigate("/profile")} label="show-profile"><AccountCircleIcon /></CustomIconButton>
         </Box>
       </Toolbar>
-    </AppBar>
+    </AppBar >
   )
 }
