@@ -9,9 +9,8 @@ interface Props {
   handlePostClick: any
 }
 export const PostCard = ({ post, handlePostClick }: Props ) => {
-
   return (
-    <Card elevation={3} sx={{ width: 500, marginBottom: '100px' }} >
+    <Card elevation={3} sx={{ width: '100%', marginBottom: '100px'}} >
       <div onClick={() => handlePostClick(post._id)}>
         <CardHeader
           avatar={<Avatar>{post.profileId.username[0].toLocaleUpperCase()}</Avatar>}
