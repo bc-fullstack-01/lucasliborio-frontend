@@ -1,22 +1,17 @@
 import React from "react";
 import server from "../../api/server";
+import { CustomContainer } from "../../components/container/container";
 import { CustomNavBar } from "../../components/custom-navbar";
 
 
 export const NewPostPage = () => {
-  const getPosts = async () =>{
-    try {
-      const token = localStorage.getItem('accessToken')
-      const response = await server.post('/feed', {
-        headers: {
-          authorization: `Bearer ${token}`
-        }
-      })
-    } catch (error) {
   
-    }
-  }
   return (
-  <CustomNavBar title="New Post"/>
+    <>
+      <CustomNavBar title="New Post" />
+      <CustomContainer>
+
+      </CustomContainer>
+    </>
   )
 }
