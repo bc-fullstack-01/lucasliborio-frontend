@@ -5,7 +5,7 @@ interface Props {
 }
 export const CustomContainer = ({ children }: Props) => {
   return (
-    <Container maxWidth='sm' sx={{ display: 'flex', marginTop: '80px', flexDirection: 'column'}}>
+    <Container maxWidth='sm' sx={{ display: 'flex', marginTop: '80px', flexDirection: 'row', justifyContent: 'center'}}>
       {children}
     </Container>
   )

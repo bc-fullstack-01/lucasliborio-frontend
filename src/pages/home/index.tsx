@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import InfiniteScrolls from "react-infinite-scroll-component";
 
@@ -74,23 +74,28 @@ export const HomePage = () => {
   return (
     <>
       <CustomNavBar title="Home" />
-      <CustomContainer>
-        <InfiniteScrolls
-          style={{ maxWidth: '100%' }}
-          dataLength={posts.length}
-          next={loadMorePosts}
-          hasMore={hasMore}
-          loader={(<Typography>Loading...</Typography>)}
-        >
 
+      <InfiniteScrolls
+
+        style={{ maxWidth: '100%' }}
+        dataLength={posts.length}
+        next={loadMorePosts}
+        hasMore={hasMore}
+        loader={(<Typography>Loading...</Typography>)}
+      >
+        <CustomContainer>
+          <Stack
+            width='100%'
+          >
           {posts && posts.map((post: Post) => (
             <div key={post._id}>
               <PostCard handlePostClick={handlePostClick} post={post} />
             </div>
           ))}
+          </Stack>
+        </CustomContainer>
+      </InfiniteScrolls>
 
-        </InfiniteScrolls>
-      </CustomContainer>
 
     </>
   )

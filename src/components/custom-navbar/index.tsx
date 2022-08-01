@@ -14,6 +14,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from 'react-router-dom';
+import { MenuProfile } from '../menu-logout';
 
 interface ICustomNavBar {
   title: string
@@ -21,7 +22,7 @@ interface ICustomNavBar {
 
 export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const navigate = useNavigate()
-  console.log(title)
+
   return (
     < AppBar position='fixed' >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -40,7 +41,7 @@ export const CustomNavBar = ({ title }: ICustomNavBar) => {
           <CustomIconButton onClickFunction={() => navigate("/notifications")} label="show-notification"><NotificationsNoneOutlinedIcon /></CustomIconButton>
           <CustomIconButton onClickFunction={() => navigate("/new-post")} label="show-create-post"><EditOutlinedIcon /></CustomIconButton>
           <CustomIconButton onClickFunction={() => navigate("/profiles")} label="show-profiles"><GroupsOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() => navigate("/profile")} label="show-profile"><AccountCircleIcon /></CustomIconButton>
+          <MenuProfile><AccountCircleIcon /></MenuProfile>
         </Box>
       </Toolbar>
     </AppBar >

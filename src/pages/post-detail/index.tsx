@@ -1,4 +1,4 @@
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import server from '../../api/server';
@@ -24,7 +24,6 @@ export const PostDetail = () => {
   const { postId } = useParams();
   const token = localStorage.getItem('accessToken') as string
   const [post, setPost] = useState<Post>()
-  console.log(post)
   useEffect(() => {
     const getPost = async () => {
       try {
@@ -33,10 +32,8 @@ export const PostDetail = () => {
             authorization: `Bearer ${token}`
           }
         })
-        console.log(response.data)
         setPost(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
     getPost()
@@ -46,8 +43,10 @@ export const PostDetail = () => {
     <>
       <CustomNavBar title='Post' />
       <CustomContainer >
-        {post && <PostCard post={post} handlePostClick={() => { }} />}
-        <CommentList postId={postId} comments={post?.comments as Comment[]} onAddComment={setPost}/>
+        <Stack width='100%'>
+          {post && <PostCard post={post} handlePostClick={() => { }} />}
+          <CommentList postId={postId} comments={post?.comments as Comment[]} onAddComment={setPost} />
+        </Stack>
       </CustomContainer>
     </>
 

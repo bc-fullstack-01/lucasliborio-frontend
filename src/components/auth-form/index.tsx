@@ -42,15 +42,18 @@ export const AuthForm = ({
         component='form'
         onSubmit={handleSubmit}
         spacing={5}
-        textAlign='center'
-        width='100%'
-        
+        textAlign="center"
+        width='50%'
+
       >
-        <Container>
+        <Container
+          sx={{ display: 'flex', justifyContent: 'center'}}
+        >
           <img
             alt="gorgeous bird"
             id="form-logo"
             src={logo}>
+
           </img>
         </Container>
         {fieldsToRender.map((field: string, index: number) => (

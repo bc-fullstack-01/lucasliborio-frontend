@@ -55,7 +55,7 @@ export const CommentList = ({ postId, comments, onAddComment }: Props) => {
           />
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button type="submit" variant="contained">Publish</Button>
+          <Button type="submit" variant="contained">Comment</Button>
         </div>
         <List>
           {comments && comments.map((c) => (
