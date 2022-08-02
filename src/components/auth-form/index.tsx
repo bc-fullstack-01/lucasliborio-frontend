@@ -47,7 +47,7 @@ export const AuthForm = ({
 
       >
         <Container
-          sx={{ display: 'flex', justifyContent: 'center'}}
+          sx={{ display: 'flex', justifyContent: 'center' }}
         >
           <img
             alt="gorgeous bird"

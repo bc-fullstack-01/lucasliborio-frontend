@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   AppBar,
   Toolbar,
@@ -15,6 +15,7 @@ import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from 'react-router-dom';
 import { MenuProfile } from '../menu-logout';
+import { io } from 'socket.io-client';
 
 interface ICustomNavBar {
   title: string
@@ -22,6 +23,39 @@ interface ICustomNavBar {
 
 export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const navigate = useNavigate()
+  const token = localStorage.getItem('accessToken')
+  const [messageCount, setMessageCount] = useState('')
+
+  const socket = io('http://localhost:5050/v1', {
+    auth: { token }
+  })
+
+  useEffect(() => {
+
+    socket.on('disconnect', () => {
+      console.log('profile disconnected')
+    })
+    socket.on('post', data => {
+      console.log(data)
+    })
+    socket.on('post-like', (data) => {
+      console.log(data)
+    })
+    socket.on('comment-like', (data) => {
+      console.log(data)
+    })
+    socket.on('follow', (data) => {
+      console.log(data)
+    })
+    socket.on('new-comment', (data) => {
+      console.log(data)
+    })
+    
+    return () => {
+      socket.off()
+      console.log('desconectou')
+    }
+  })
 
   return (
     < AppBar position='fixed' >

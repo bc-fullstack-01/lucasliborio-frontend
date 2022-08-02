@@ -87,11 +87,11 @@ export const HomePage = () => {
           <Stack
             width='100%'
           >
-          {posts && posts.map((post: Post) => (
-            <div key={post._id}>
-              <PostCard handlePostClick={handlePostClick} post={post} />
-            </div>
-          ))}
+            {posts && posts.map((post: Post) => (
+              <div key={post._id}>
+                <PostCard handlePostClick={handlePostClick} post={post} />
+              </div>
+            ))}
           </Stack>
         </CustomContainer>
       </InfiniteScrolls>

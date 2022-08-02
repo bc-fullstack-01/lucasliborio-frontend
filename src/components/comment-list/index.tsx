@@ -16,7 +16,7 @@ export const CommentList = ({ postId, comments, onAddComment }: Props) => {
   const handlePublishComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const postComment = async () => {
-      console.log(comments)
+    
       try {
         const response = await server.post(`/post/${postId}/comment`, {
           content: comment
