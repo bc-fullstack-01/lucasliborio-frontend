@@ -81,7 +81,7 @@ export const HomePage = () => {
         dataLength={posts.length}
         next={loadMorePosts}
         hasMore={hasMore}
-        loader={(<Typography>Loading...</Typography>)}
+        loader={<Typography></Typography>}
       >
         <CustomContainer>
           <Stack

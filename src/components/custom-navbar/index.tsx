@@ -4,6 +4,7 @@ import {
   Toolbar,
   Typography,
   Box,
+  Badge,
 
 } from '@mui/material'
 
@@ -24,38 +25,38 @@ interface ICustomNavBar {
 export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const navigate = useNavigate()
   const token = localStorage.getItem('accessToken')
-  const [messageCount, setMessageCount] = useState('')
+  const [notificationCount, setNotificationCount] = useState(0)
+
 
   const socket = io('http://localhost:5050/v1', {
     auth: { token }
   })
 
   useEffect(() => {
-
     socket.on('disconnect', () => {
       console.log('profile disconnected')
     })
     socket.on('post', data => {
-      console.log(data)
+      setNotificationCount((n) => n + 1)
     })
     socket.on('post-like', (data) => {
-      console.log(data)
+      setNotificationCount((n) => n + 1)
     })
     socket.on('comment-like', (data) => {
-      console.log(data)
+      setNotificationCount((n) => n + 1)
     })
     socket.on('follow', (data) => {
-      console.log(data)
+      setNotificationCount((n) => n + 1)
     })
     socket.on('new-comment', (data) => {
-      console.log(data)
+      setNotificationCount((n) => n + 1)
     })
-    
+
     return () => {
       socket.off()
       console.log('desconectou')
     }
-  })
+  }, [token, socket])
 
   return (
     < AppBar position='fixed' >
@@ -72,7 +73,7 @@ export const CustomNavBar = ({ title }: ICustomNavBar) => {
           sx={{ display: { xs: 'block', sm: 'flex' } }}
         >
           <CustomIconButton onClickFunction={() => navigate("/home")} label="show-home"><HomeOutlinedIcon /></CustomIconButton>
-          <CustomIconButton onClickFunction={() => navigate("/notifications")} label="show-notification"><NotificationsNoneOutlinedIcon /></CustomIconButton>
+          <CustomIconButton onClickFunction={() => { setNotificationCount(0) }} label="show-notification"><Badge color="secondary" badgeContent={notificationCount}><NotificationsNoneOutlinedIcon /> </Badge></CustomIconButton>
           <CustomIconButton onClickFunction={() => navigate("/new-post")} label="show-create-post"><EditOutlinedIcon /></CustomIconButton>
           <CustomIconButton onClickFunction={() => navigate("/profiles")} label="show-profiles"><GroupsOutlinedIcon /></CustomIconButton>
           <MenuProfile><AccountCircleIcon /></MenuProfile>

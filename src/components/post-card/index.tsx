@@ -9,6 +9,7 @@ interface Props {
   handlePostClick: any
 }
 export const PostCard = ({ post, handlePostClick }: Props ) => {
+  console.log(post.imageUrl)
   return (
     <Card elevation={3} sx={{ width: '100%', marginBottom: '100px'}} >
       <div onClick={() => handlePostClick(post._id)}>
@@ -22,7 +23,7 @@ export const PostCard = ({ post, handlePostClick }: Props ) => {
             {post.description}
           </Typography>
         </CardContent>
-        {post.hasImage ? (<CardMedia component='img' image={`http://${post.imageUrl}`}></CardMedia>) : null}
+        {post.hasImage ? (<CardMedia component='img' image={`${post.imageUrl}`}></CardMedia>) : null}
       </div>
       <CardActions>
         <div style={{
