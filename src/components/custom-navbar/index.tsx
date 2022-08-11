@@ -28,7 +28,7 @@ export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const [notificationCount, setNotificationCount] = useState(0)
 
 
-  const socket = io('http://localhost:5050/v1', {
+  const socket = io("https://sys-social-api.herokuapp.com/v1", {
     auth: { token }
   })
 
