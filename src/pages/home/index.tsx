@@ -45,7 +45,7 @@ export const HomePage = () => {
   const handlePostClick = (postId: string) => {
     navigate(`/posts/${postId}`)
   }
-
+  
   useEffect(() => {
     const getPosts = async () => {
       try {

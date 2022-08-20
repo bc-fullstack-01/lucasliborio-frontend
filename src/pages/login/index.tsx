@@ -8,14 +8,16 @@ interface TokenUser {
   profileId: string,
   user: string
 }
-
+interface Props {
+  handleError: () => void
+}
 export const LoginPage = () => {
   const navigate = useNavigate()
-
-  const handleLogin = async ({email, password}:any) => {
+  const [error, setError] = useState(null)
+  const handleLogin = async ({ email, password }: any) => {
     try {
       const response = await server.post('/login', {
-        email:email.value,
+        email: email.value,
         password: password.value
       })
       console.log(await response.data)
@@ -26,18 +28,19 @@ export const LoginPage = () => {
         localStorage.setItem(key, value)
       })
       navigate('/home')
-    } catch (error) {
-      console.log(error)
-      alert('não foi possivel logar o usuario')
-    } 
+    } catch (error: any) {
+      setError(error.response)
+      alert('não foi possivel logar o usuario, aguarde um momento')
+    }
   }
   return (
     <AuthForm
+      error={[error, setError]}
       fieldsToRender={['email', 'password']}
       onSubmitForm={handleLogin}
       buttonLink="/signup"
       buttonLabel="Login"
-      linkText="Don't have an account? Click Here" 
+      linkText="Don't have an account? Click Here"
     />
   )
 }

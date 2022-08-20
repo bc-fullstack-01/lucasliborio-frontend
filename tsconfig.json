@@ -23,6 +23,7 @@
   },
   "include": [
     "src",
+    "*.ts",
     "global.d.ts"
   ]
 }

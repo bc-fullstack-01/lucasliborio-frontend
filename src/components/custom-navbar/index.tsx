@@ -17,7 +17,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { useNavigate } from 'react-router-dom';
 import { MenuProfile } from '../menu-logout';
 import { io } from 'socket.io-client';
-
+import env from '../../env'
 interface ICustomNavBar {
   title: string
 }
@@ -28,7 +28,7 @@ export const CustomNavBar = ({ title }: ICustomNavBar) => {
   const [notificationCount, setNotificationCount] = useState(0)
 
 
-  const socket = io("https://sys-social-api.herokuapp.com/v1", {
+  const socket = io(env.prodURL, {
     auth: { token }
   })
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from 'react-router-dom'
-import { TextField, Button, Container, Stack } from '@mui/material'
+import { TextField, Button, Container, Stack, Alert } from '@mui/material'
 import './index.css'
 import logo from '../../assets/logo.svg'
 import { CustomContainer } from "../container/container";
@@ -10,11 +10,15 @@ interface Props {
   onSubmitForm: any
   buttonLabel: string
   buttonLink: string,
-  linkText: string
+  linkText: string,
+  error: [any, React.Dispatch<React.SetStateAction<any>>]
 }
 interface inputsProperty {
   value?: string,
-  error?: string
+  error?: {
+    text: any
+    isError: boolean
+  }
 }
 
 export const AuthForm = ({
@@ -22,7 +26,8 @@ export const AuthForm = ({
   onSubmitForm,
   buttonLabel,
   buttonLink,
-  linkText
+  linkText,
+  error
 }: Props) => {
 
   type FormFields = {
@@ -35,7 +40,11 @@ export const AuthForm = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     onSubmitForm(userData)
+    setTimeout(() => {
+      error[1](null)
+    }, 2000)
   }
+
   return (
     <CustomContainer>
       <Stack
@@ -44,7 +53,6 @@ export const AuthForm = ({
         spacing={5}
         textAlign="center"
         width='50%'
-
       >
         <Container
           sx={{ display: 'flex', justifyContent: 'center' }}
@@ -58,6 +66,8 @@ export const AuthForm = ({
         </Container>
         {fieldsToRender.map((field: string, index: number) => (
           <TextField
+            error={userData[field].error?.isError}
+            helperText={userData[field].error?.text}
             key={index.toString()}
             name={field}
             value={userData[field].value}
@@ -73,6 +83,8 @@ export const AuthForm = ({
           variant="contained">
           {buttonLabel}
         </Button>
+
+        {error[0] && <Alert severity="error">{error[0]?.data.error}</Alert>}
         <Link
           className="link-action"
           to={buttonLink}>

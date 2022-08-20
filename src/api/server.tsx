@@ -1,6 +1,5 @@
 import axios from 'axios'
-
+import env from '../env'
 export default axios.create({
-  /* baseURL:"https://sys-social-api.herokuapp.com/v1" */
-  baseURL:"https://sys-social-api.herokuapp.com/v1"
+  baseURL: env.prodURL
 })
