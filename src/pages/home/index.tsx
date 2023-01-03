@@ -45,7 +45,7 @@ export const HomePage = () => {
   const handlePostClick = (postId: string) => {
     navigate(`/posts/${postId}`)
   }
-  
+
   useEffect(() => {
     const getPosts = async () => {
       try {
@@ -54,21 +54,13 @@ export const HomePage = () => {
             authorization: `Bearer ${token}`
           }
         })
-        console.log(response.data.length)
         setHasMore(response.data.length !== 0)
         setPosts(p => [...p, ...response.data])
-        /* console.log("RESPONDE DATA", response.data)
-        console.log("STATE POST ", posts)
-        console.log("PAGE", page)
-        console.log("hasMore", hasMore) */
-        console.log(hasMore)
       } catch (err) {
         console.log(err)
       }
     }
-
     getPosts()
-
   }, [token, page, hasMore])
 
   return (
